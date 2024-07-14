@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>康師傅里程計數器</title>
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 80%;
+            max-width: 300px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        input, button {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4a86e8;
+            color: white;
+            border: none;
+            cursor: pointer;
+            touch-action: manipulation;
+        }
+        button:hover {
+            background-color: #3a76d8;
+        }
+        #totalMileage, #tripCount {
+            font-weight: bold;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>康師傅里程計數器</h1>
+        <input type="text" id="mileageInput" placeholder="輸入里程 (公里)" inputmode="decimal">
+        <button id="addButton">添加里程</button>
+        <p id="totalMileage">總里程: 0.00 公里</p>
+        <p id="tripCount">總趟數: 0</p>
+    </div>
+
+    <script>
+        let totalMileage = 0;
+        let tripCount = 0;
+
+        function addMileage() {
+            const mileageInput = document.getElementById('mileageInput');
+            const mileage = parseFloat(mileageInput.value);
+
+            if (isNaN(mileage) || mileage < 0) {
+                alert('請輸入有效的里程數');
+                return;
+            }
+
+            totalMileage += mileage;
+            tripCount++;
+
+            document.getElementById('totalMileage').textContent = `總里程: ${totalMileage.toFixed(2)} 公里`;
+            document.getElementById('tripCount').textContent = `總趟數: ${tripCount}`;
+
+            mileageInput.value = '';
+        }
+
+        document.getElementById('addButton').addEventListener('click', addMileage);
+        document.getElementById('addButton').addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            addMileage();
+        });
+    </script>
+</body>
+</html>
